@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+
+body {
+    margin:0px;
+	padding:0px;	
+	font-family: calibri;
+}
+a {
+	text-decoration: none;
+}
+
+ul {
+
+	margin:0px;
+	padding:0px;	
+
+	li {
+		list-style-type: none;
+	}
+}
+
+.alert-danger {
+    color: red;
+}

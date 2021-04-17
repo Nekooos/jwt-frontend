@@ -1,0 +1,25 @@
+<div class="users-container">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Enabled</th>
+                <th>Role</th>
+                <th>Add Role</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.email }}</td>
+                <td>{{ user.enabled }}</td>
+                <td>
+                    <span class="user-role" *ngFor="let role of user.roles">
+                        {{ role.role }}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

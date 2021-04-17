@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+        <li><a [routerLink]="['/']">Login</a></li>
+        <li><a [routerLink]="['/logged-in']">Users</a></li>
+        <li><a [routerLink]="['/']">Editors</a></li>
+        <li><a [routerLink]="['/']">Admins</a></li>
+        <li [ngSwitch]="authenticationService.isAuthenticated$ | async">
+            <button (click)="logInOrOut()" *ngSwitchCase="true" class="login-button">
+                Logout
+            </button>
+            <button (click)="logInOrOut()" *ngSwitchDefault class="login-button">
+                Login
+            </button>
+        </li>
+    </ul>
+</nav>

@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "jwt-frontend"
+    }
+  },
+  "defaultProject": "jwt-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

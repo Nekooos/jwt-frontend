@@ -1,0 +1,32 @@
+<section class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit) = "onSubmit()">
+
+        <label for="email">Email:</label>
+        <input id="name" type="text" 
+            formControlName="email" required>
+        
+        <div *ngIf="email.invalid" class="alert-danger">
+            <div *ngIf="email.errors.required">
+                Email is required
+            </div>
+        </div>
+
+        <label for="password">Password:</label>
+        <input id="password" type="password" 
+            formControlName="password" required>
+        
+        <div *ngIf="password.invalid" class="alert-danger">
+            <div *ngIf="password.errors.required">
+                Password is required
+            </div>
+        </div>
+        <div *ngIf="backendError" class="alert-danger">
+            {{ backendError }}
+        </div>
+
+        <button class="login-form-button" type="submit">Login</button>
+    </form>
+
+    <a class="form-link" href="#">Forgot Your Password</a>
+    <a [routerLink]="['/register']" class="form-link">Register</a>
+</section>
