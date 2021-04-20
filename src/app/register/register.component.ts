@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   userDto: UserDto = new UserDto()
   user: User
   backendError: String
+  isEmailSent: boolean = false
   private registerSubscription: Subscription
 
   constructor(
@@ -47,7 +48,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }, error => {
       this.backendError = error
     }, () => {
-      
+      this.isEmailSent = true;
     })
   }
 

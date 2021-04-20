@@ -31,6 +31,10 @@
             {{ backendError }}
         </div>
 
+        <div *ngIf="isEmailSent">
+            An email was sent to {{ user.email }}. Click on the link to activate your account   
+        </div>
+
         <button class="register-form-button" type="submit">Register</button>
     </form>
 </section>
