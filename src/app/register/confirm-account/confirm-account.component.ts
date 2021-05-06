@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -10,25 +11,33 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class ConfirmAccountComponent implements OnInit, OnDestroy {
 
-  token: String
-  private routeParamSubscription: Subscription
+  isAccountConfirmed: boolean = false
+  confirmedUser: User
+  confirmAccountToken: string
+  error: string
+  private paramsSubscription: Subscription
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService) { }
 
   ngOnInit(): void {
-    this.routeParamSubscription = this.activatedRoute.queryParams.subscribe(confirmAccountToken => {
-      this.token = confirmAccountToken as String
-    }, error => {
-      console.log(error)
-    },() => {
-      //userservice post confirm account
+    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+      this.confirmAccountToken = params['token'] as string
     })
+
+    this.userService.confirmAccount(this.confirmAccountToken).subscribe(user => {
+      this.confirmedUser = user as User
+      console.log(this.confirmedUser.enabled + ' ' + this.confirmedUser.email + ' ' + this.confirmedUser.id)
+      this.isAccountConfirmed = this.confirmedUser.enabled
+    }, error => {
+      this.error = error
+    })
+
   }
 
   ngOnDestroy(): void {
-    if(this.routeParamSubscription) {
-      this.routeParamSubscription.unsubscribe
+    if(this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe
     }
   }
 

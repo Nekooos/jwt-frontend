@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -38,6 +37,7 @@ export class AuthenticationService {
   removeUsernameAndJwtToken(): void {
     sessionStorage.removeItem("username")
     sessionStorage.removeItem("jwtToken")
+    this.deAuthenticate()
   }
 
   isLoggedIn(): boolean {

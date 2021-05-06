@@ -11,6 +11,10 @@ import { RegisterComponent } from './register/register.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { MenuComponent } from './menu/menu.component';
 import { HttpInterceptorService } from './service/http-interceptor.service';
+import { ConfirmAccountComponent } from './register/confirm-account/confirm-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
     LoginComponent,
     RegisterComponent,
     LoggedInComponent,
-    MenuComponent
+    MenuComponent,
+    ConfirmAccountComponent,
+    ForgotPasswordComponent,
+    NewPasswordComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,

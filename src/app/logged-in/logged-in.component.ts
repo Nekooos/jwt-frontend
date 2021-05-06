@@ -11,6 +11,7 @@ import { UserService } from '../service/user.service';
 export class LoggedInComponent implements OnInit, OnDestroy {
 
   users: User[];
+  backendError: string
   usersSubscription: Subscription;
 
   constructor(private userService: UserService) { }
@@ -19,6 +20,8 @@ export class LoggedInComponent implements OnInit, OnDestroy {
     this.userService.getAllUsers().subscribe(data => {
       this.users = data as User[]
       console.log(this.users)
+    }, error => {
+      this.backendError = error
     })
   }
 

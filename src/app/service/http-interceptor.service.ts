@@ -1,4 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { chainedInstruction } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
@@ -43,19 +44,16 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   private createBackendErrorMessage(error): string {
     if(error.error.fieldErrors) {
-      const fieldErrors: string = this.stringifyFieldErrors(error.error.fieldErrors)
-      console.log(fieldErrors)
-      return `${error.error.message}: ${fieldErrors}`
+      console.log(error.error.fieldErrors)
+      const fieldError = this.fieldErrorsToString(error.error.fieldErrors)
+      return `${error.error.message}: ${fieldError}`
     } else {
       return error.error.message
     }
   }
 
-  private stringifyFieldErrors(fieldErrors): string {
-    let errors: string = ''
-    fieldErrors.forEach(error => {
-      errors.concat(`${error.errorMessage}, `)
-    })
-    return errors
+  private fieldErrorsToString(fieldErrors): String {
+    let fieldErrorsString: string = JSON.stringify(fieldErrors)
+    return fieldErrorsString
   }
 }

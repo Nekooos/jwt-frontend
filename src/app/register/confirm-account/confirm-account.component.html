@@ -1,1 +1,12 @@
-<p>confirm-account works!</p>
+<div *ngIf="error">
+    {{ backendError }}
+</div>
+
+<div *ngIf="isAccountConfirmed">
+    <h4>Account:</h4>
+    <ul>
+        <li>id: {{ confirmedUser.id }}</li>
+        <li>Email: {{ confirmedUser.email }}</li>
+        <li>Enabled: {{ confirmedUser.enabled }}</li>
+    </ul>
+</div>

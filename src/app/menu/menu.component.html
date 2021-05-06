@@ -8,7 +8,7 @@
             <button (click)="logInOrOut()" *ngSwitchCase="true" class="login-button">
                 Logout
             </button>
-            <button (click)="logInOrOut()" *ngSwitchDefault class="login-button">
+            <button (click)="logInOrOut()" *ngSwitchCase="false" class="login-button">
                 Login
             </button>
         </li>

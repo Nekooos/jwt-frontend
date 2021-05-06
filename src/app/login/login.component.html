@@ -20,13 +20,13 @@
                 Password is required
             </div>
         </div>
-        <div *ngIf="backendError" class="alert-danger">
-            {{ backendError }}
+        <div *ngIf="error" class="alert-danger">
+            {{ error }}
         </div>
 
         <button class="login-form-button" type="submit">Login</button>
     </form>
 
-    <a class="form-link" href="#">Forgot Your Password</a>
+    <a [routerLink]="['/forgot-password/']" class="form-link">Forgot Your Password</a>
     <a [routerLink]="['/register']" class="form-link">Register</a>
 </section>

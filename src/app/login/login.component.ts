@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   token: String;
   authenticateSubscription: Subscription;
   userDto: UserDto = new UserDto()
-  backendError: string
+  error: string
   
 
   loginForm = new FormGroup({
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('logged-in')
     }, error => {
       console.log(error)
-      this.backendError = error
+      this.error = error
     })
   }
 

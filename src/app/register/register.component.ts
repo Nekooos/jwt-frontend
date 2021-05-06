@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   userDto: UserDto = new UserDto()
   user: User
-  backendError: String
+  error: String
   isEmailSent: boolean = false
   private registerSubscription: Subscription
 
@@ -26,10 +26,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   
     registerForm = new FormGroup({
       email: new FormControl(
-        'email@example.com', 
+        'email@example.com', [
         Validators.required,
-        //Validators.email
-      ),
+        Validators.email
+        ]),
       password: new FormControl(
         'password', [
         Validators.required,
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerSubscription = this.userService.register(this.userDto).subscribe(data => {
       this.user = data as User
     }, error => {
-      this.backendError = error
+      this.error = error
     }, () => {
       this.isEmailSent = true;
     })

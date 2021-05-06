@@ -1,4 +1,3 @@
-import { RouterLink } from "@angular/router";
 import { Role } from "./Role";
 
 export class User {
