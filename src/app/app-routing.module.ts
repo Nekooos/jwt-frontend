@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { ConfirmAccountComponent } from './register/confirm-account/confirm-account.component';
 import { RegisterComponent } from './register/register.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
   { path: 'register/confirm-account/:token', component: ConfirmAccountComponent, pathMatch: 'full'},
   { path: 'forgot-password', component: ForgotPasswordComponent, pathMatch: 'full'},
-  { path: 'new-password/:token', component: NewPasswordComponent, pathMatch: 'full'}
+  { path: 'new-password/:token', component: NewPasswordComponent, pathMatch: 'full'},
+  { path: 'user-page/:email', component: UserPageComponent, pathMatch: 'full'}
 ];
 
 

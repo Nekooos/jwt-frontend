@@ -49,4 +49,12 @@ export class UserService {
   getAllUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.url + '/get-all')
   }
+
+  getUserByEmail(email: string): Observable<User> {
+    return this.httpClient.get<User>(this.url + '/email/' + email)
+  }
+
+  getAuthenticatedUserInfo() {
+    return this.httpClient.get<string>(this.url + '/pre-user')
+  }
 }

@@ -5,10 +5,10 @@
         <li><a [routerLink]="['/']">Editors</a></li>
         <li><a [routerLink]="['/']">Admins</a></li>
         <li [ngSwitch]="authenticationService.isAuthenticated$ | async">
-            <button (click)="logInOrOut()" *ngSwitchCase="true" class="login-button">
+            <button (click)="logInOrOut()" *ngSwitchCase=true class="login-button">
                 Logout
             </button>
-            <button (click)="logInOrOut()" *ngSwitchCase="false" class="login-button">
+            <button (click)="logInOrOut()" *ngSwitchCase=false class="login-button">
                 Login
             </button>
         </li>

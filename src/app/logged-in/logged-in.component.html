@@ -16,7 +16,7 @@
         
         <tbody>
             <tr *ngFor="let user of users">
-                <td>{{ user.email }}</td>
+                <td><a [routerLink]="['/user-page', user.email  ]"> {{ user.email }}</a></td>
                 <td>{{ user.enabled }}</td>
                 <td>
                     <span class="user-role" *ngFor="let role of user.roles">

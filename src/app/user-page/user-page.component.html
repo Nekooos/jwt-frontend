@@ -1,1 +1,13 @@
-<p>user-page works!</p>
+
+<ul *ngIf="user">
+    <li>Emai:  {{ user.email }} </li>
+    <li>id: {{ user.id }}</li>
+    <li>
+        <span class="user-role" *ngFor="let role of user.roles">
+            Role: {{ role.role }}
+        </span>
+    </li>
+    <li *ngIf="userInformation">
+        {{ userInformation }}
+    </li>
+</ul>
