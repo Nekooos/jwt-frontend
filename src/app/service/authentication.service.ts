@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { User } from '../model/User';
+import jwtDecode, { JwtPayload } from 'jwt-decode'
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +16,29 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   authenticate(email: string, password: string) {
-    return this.httpClient.post<User>(this.url +'/authenticate', {email, password})
+    return this.httpClient.post<any>(this.url +'/authenticate', {email, password})
     .pipe(
       tap(jwtResponse => {
-        this.setSession(jwtResponse, email)
+        const jwtToken = jwtResponse.token
+        const decodedJwtToken = jwtDecode<JwtPayload>(jwtToken)
+        const email = decodedJwtToken['email']
+        const role = decodedJwtToken['role']
+        this.setSession(jwtResponse, email, role)
         this.authenticated()
       })
     )
   }
 
-  private setSession(userData, email: string): void {
+  private setSession(userData, email: string, role: string): void {
     sessionStorage.setItem("username", email)
+    sessionStorage.setItem("role", role)
     let tokenString = "Bearer " + userData.token
     sessionStorage.setItem("jwtToken", tokenString)
   }
 
   removeUsernameAndJwtToken(): void {
     sessionStorage.removeItem("username")
+    sessionStorage.removeItem("role")
     sessionStorage.removeItem("jwtToken")
     this.deAuthenticate()
   }
@@ -53,6 +59,10 @@ export class AuthenticationService {
 
   getEmail() {
     return window.sessionStorage.getItem("username")
+  }
+
+  getRole() {
+    return window.sessionStorage.getItem("role")
   }
 
   public authenticated(): void {
