@@ -19,9 +19,11 @@
                 <td><a [routerLink]="['/user-page', user.email  ]"> {{ user.email }}</a></td>
                 <td>{{ user.enabled }}</td>
                 <td>
-                    <span class="user-role" *ngFor="let role of user.roles">
-                        {{ role.role }}
+                    <span class="user-role" *ngFor="let role of userRoles">
+                        {{ role}}
+                        <span *ngIf="role === 'ROLE_ADMIN'"><button (click)="addRole(user)">promote</button></span>
                     </span>
+                    
                 </td>
             </tr>
         </tbody>

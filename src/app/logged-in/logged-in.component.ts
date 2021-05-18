@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Role } from '../model/Role';
 import { User } from '../model/User';
 import { UserService } from '../service/user.service';
 
@@ -9,10 +10,12 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./logged-in.component.scss']
 })
 export class LoggedInComponent implements OnInit, OnDestroy {
-
-  users: User[];
+  userRoles: string[]
+  users: User[]
+  user: User
+  role: Role
   backendError: string
-  usersSubscription: Subscription;
+  usersSubscription: Subscription
 
   constructor(private userService: UserService) { }
 
@@ -23,6 +26,10 @@ export class LoggedInComponent implements OnInit, OnDestroy {
     }, error => {
       this.backendError = error
     })
+
+    let userRoles: string = sessionStorage.getItem('role')
+    this.userRoles = userRoles.split(',')
+    console.log(this.userRoles)
   }
 
   ngOnDestroy(): void {
@@ -31,4 +38,23 @@ export class LoggedInComponent implements OnInit, OnDestroy {
     }
   }
 
+  addRole(user: User): void {
+    
+    this.userService.addRole(user.id, this.addBasedOnRole(user)).subscribe(data => {
+      this.user = data
+    }, error => {
+      this.backendError = error
+    })
+  }
+
+  addBasedOnRole(user: User): string | null {
+    const roles = Array.from(user.roles)
+    if(roles.filter(role => role.role === 'ROLE_USER') && !roles.filter(role => role.role === 'ROLE_EDITOR') && !roles.filter(role => role.role === 'ROLE_ADMIN')) {
+      return 'EDITOR'
+    } else if(roles.filter(role => role.role === 'ROLE_EDITOR') ) {
+      return 'ADMIN'
+    } else {
+      return null
+    }
+  }
 }
