@@ -39,9 +39,10 @@ export class LoggedInComponent implements OnInit, OnDestroy {
   }
 
   addRole(user: User): void {
-    
-    this.userService.addRole(user.id, this.addBasedOnRole(user)).subscribe(data => {
-      this.user = data
+    console.log(user)
+    const roleToAdd: string = this.addBasedOnRole(user)
+    this.userService.addRole(user.id, roleToAdd).subscribe(data => {
+      this.user = data as User
     }, error => {
       this.backendError = error
     })
@@ -49,12 +50,13 @@ export class LoggedInComponent implements OnInit, OnDestroy {
 
   addBasedOnRole(user: User): string | null {
     const roles = Array.from(user.roles)
-    if(roles.filter(role => role.role === 'ROLE_USER') && !roles.filter(role => role.role === 'ROLE_EDITOR') && !roles.filter(role => role.role === 'ROLE_ADMIN')) {
+
+    if(!roles.filter(role => role.role === 'ROLE_EDITOR')) {
       return 'EDITOR'
-    } else if(roles.filter(role => role.role === 'ROLE_EDITOR') ) {
+    } 
+    else {
       return 'ADMIN'
-    } else {
-      return null
+    
     }
   }
 }

@@ -36,7 +36,7 @@ export class UserService {
   saveNewPassword(password: string, token:string): Observable<User> {
     const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(this.createPasswordDto(password, token))
-    return this.httpClient.post<User>(this.url + '/save-new-password', body)
+    return this.httpClient.post<User>(this.url + '/save-new-password', body, {'headers' : headers})
   }
 
   createPasswordDto(password: string, token:string): PasswordDto {
