@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Role } from '../model/Role';
 import { User } from '../model/User';
@@ -14,7 +15,7 @@ export class LoggedInComponent implements OnInit, OnDestroy {
   users: User[]
   user: User
   role: Role
-  backendError: string
+  error: string
   usersSubscription: Subscription
 
   constructor(private userService: UserService) { }
@@ -22,9 +23,8 @@ export class LoggedInComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(data => {
       this.users = data as User[]
-      console.log(this.users)
     }, error => {
-      this.backendError = error
+      this.error = error
     })
 
     let userRoles: string = sessionStorage.getItem('role')
@@ -44,19 +44,18 @@ export class LoggedInComponent implements OnInit, OnDestroy {
     this.userService.addRole(user.id, roleToAdd).subscribe(data => {
       this.user = data as User
     }, error => {
-      this.backendError = error
+      this.error = error
     })
   }
 
-  addBasedOnRole(user: User): string | null {
+  addBasedOnRole(user: User): string {
     const roles = Array.from(user.roles)
-
-    if(!roles.filter(role => role.role === 'ROLE_EDITOR')) {
+   
+    if(roles.find(role => role.role !== 'EDITOR')) {
       return 'EDITOR'
     } 
     else {
       return 'ADMIN'
-    
     }
   }
 }

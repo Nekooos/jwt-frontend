@@ -16,7 +16,9 @@ export class MenuComponent implements OnInit {
               private route: Router) { }
 
   ngOnInit(): void {
-    
+    if(this.authenticationService.isLoggedIn()) {
+      this.authenticationService.authenticated()
+    }
   }
 
   logInOrOut(): void {

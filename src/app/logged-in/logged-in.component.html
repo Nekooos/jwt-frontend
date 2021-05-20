@@ -1,12 +1,12 @@
 <div class="users-container">
 
-    <div *ngIf="backendError">
-        {{ backendError }}
+    <div *ngIf="error">
+        {{ error }}
     </div>
 
     <table>
         <thead>
-            <tr *ngIf="!backendError">
+            <tr *ngIf="!error">
                 <th>Email</th>
                 <th>Enabled</th>
                 <th>Role</th>
