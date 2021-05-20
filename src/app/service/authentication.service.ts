@@ -19,20 +19,22 @@ export class AuthenticationService {
     return this.httpClient.post<any>(this.url +'/authenticate', {email, password})
     .pipe(
       tap(jwtResponse => {
+        console.log(jwtResponse.token)
         const jwtToken = jwtResponse.token
         const decodedJwtToken = jwtDecode<JwtPayload>(jwtToken)
-        const email = decodedJwtToken['email']
+        const email = decodedJwtToken['sub']
         const role = decodedJwtToken['role']
-        this.setSession(jwtResponse, email, role)
+        this.setSession(jwtToken, email, role)
         this.authenticated()
       })
     )
   }
 
-  private setSession(userData, email: string, role: string): void {
+  private setSession(jwtToken, email: string, role: string): void {
     sessionStorage.setItem("username", email)
     sessionStorage.setItem("role", role)
-    let tokenString = "Bearer " + userData.token
+    let tokenString = "Bearer " + jwtToken
+    console.log(jwtToken)
     sessionStorage.setItem("jwtToken", tokenString)
   }
 
@@ -47,14 +49,8 @@ export class AuthenticationService {
     return sessionStorage.getItem("username") && sessionStorage.getItem("jwtToken") ? true : false
   }
 
-  saveToken(token: string): void {
-    window.sessionStorage.removeItem("token")
-    window.sessionStorage.removeItem("username")
-    window.sessionStorage.setItem("username", token)
-  }
-
   getToken(): string | null {
-    return window.sessionStorage.getItem("token")
+    return window.sessionStorage.getItem("jwtToken")
   }
 
   getEmail() {

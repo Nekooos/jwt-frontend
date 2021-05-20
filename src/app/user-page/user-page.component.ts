@@ -47,10 +47,12 @@ export class UserPageComponent implements OnInit {
   }
 
   getAuthenticatedUserInformation(userEmail:string) {
-    console.log(userEmail + ' ' +this.email)
+    console.log(sessionStorage.getItem('username'))
+    console.log(sessionStorage.getItem('role'))
+    console.log(sessionStorage.getItem('jwtToken'))
     if(userEmail === this.email) {
    
-      this.userService.getAuthenticatedUserInfo().subscribe(data => {
+      this.userService.getAuthenticatedUserInfo(userEmail).subscribe(data => {
         this.userInformation = data as string
       }, error => {
         error = error

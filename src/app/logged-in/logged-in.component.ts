@@ -21,6 +21,9 @@ export class LoggedInComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log(sessionStorage.getItem('username'))
+    console.log(sessionStorage.getItem('role'))
+    console.log(sessionStorage.getItem('jwtToken'))
     this.userService.getAllUsers().subscribe(data => {
       this.users = data as User[]
     }, error => {

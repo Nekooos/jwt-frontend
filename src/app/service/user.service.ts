@@ -54,8 +54,8 @@ export class UserService {
     return this.httpClient.get<User>(this.url + '/email/' + email)
   }
 
-  getAuthenticatedUserInfo(): Observable<string>{
-    return this.httpClient.get<string>(this.url + '/pre-user')
+  getAuthenticatedUserInfo(email: string): Observable<string>{
+    return this.httpClient.get<string>(this.url + '/pre-user/' + email)
   }
 
   addRole(id: number, role: string): Observable<User> {

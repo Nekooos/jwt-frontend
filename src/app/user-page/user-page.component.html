@@ -3,8 +3,9 @@
     <li>Emai:  {{ user.email }} </li>
     <li>id: {{ user.id }}</li>
     <li>
+        Roles: 
         <span class="user-role" *ngFor="let role of user.roles">
-            Role: {{ role.role }}
+           {{ role.role }}
         </span>
     </li>
     <li *ngIf="userInformation">
