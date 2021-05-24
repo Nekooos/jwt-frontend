@@ -22,7 +22,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       })
     } else {
       console.log('User is not logged in')
-      //this.router.navigateByUrl("/")
+      this.router.navigateByUrl("/")
     }                                                 
 
     return next.handle(request)

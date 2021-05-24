@@ -31,9 +31,7 @@ export class UserPageComponent implements OnInit {
 
     this.getUser()
 
-    console.log(this.authenticationService.getEmail())
     let userEmail = this.authenticationService.getEmail()
-
     this.getAuthenticatedUserInformation(userEmail)
 
   }
@@ -47,15 +45,17 @@ export class UserPageComponent implements OnInit {
   }
 
   getAuthenticatedUserInformation(userEmail:string) {
-    console.log(sessionStorage.getItem('username'))
-    console.log(sessionStorage.getItem('role'))
-    console.log(sessionStorage.getItem('jwtToken'))
+    console.log(userEmail + ' ' + this.email)
+    console.log(userEmail === this.email)
     if(userEmail === this.email) {
-   
+      console.log('in')
       this.userService.getAuthenticatedUserInfo(userEmail).subscribe(data => {
+        console.log('in 2')
         this.userInformation = data as string
       }, error => {
         error = error
+      }, () => {
+        console.log('getAuthenticatedUserInformation finished')
       })
     }
   }
