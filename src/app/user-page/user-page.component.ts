@@ -15,7 +15,7 @@ export class UserPageComponent implements OnInit {
   user: User
   error: string
   isEmailUserEmail: boolean
-  userInformation: string
+  userInformation: String
 
   constructor(private userService: UserService,
               private activatedRoute: ActivatedRoute,
@@ -32,9 +32,11 @@ export class UserPageComponent implements OnInit {
     this.getUser()
 
     let userEmail = this.authenticationService.getEmail()
-    this.getAuthenticatedUserInformation(userEmail)
+    this.getAuthenticatedUserInformation(userEmail);
 
+  
   }
+
 
   getUser() {
     this.userService.getUserByEmail(this.email).subscribe(user => {
@@ -45,17 +47,11 @@ export class UserPageComponent implements OnInit {
   }
 
   getAuthenticatedUserInformation(userEmail:string) {
-    console.log(userEmail + ' ' + this.email)
-    console.log(userEmail === this.email)
     if(userEmail === this.email) {
-      console.log('in')
       this.userService.getAuthenticatedUserInfo(userEmail).subscribe(data => {
-        console.log('in 2')
-        this.userInformation = data as string
+        this.userInformation = data.information
       }, error => {
-        error = error
-      }, () => {
-        console.log('getAuthenticatedUserInformation finished')
+        this.error = error
       })
     }
   }

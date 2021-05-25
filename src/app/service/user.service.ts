@@ -39,7 +39,7 @@ export class UserService {
     return this.httpClient.post<User>(this.url + '/save-new-password', body, {'headers' : headers})
   }
 
-  createPasswordDto(password: string, token:string): PasswordDto {
+  private createPasswordDto(password: string, token:string): PasswordDto {
     let passwordDto = new PasswordDto()
     passwordDto.newPassword = password as string
     passwordDto.token = token as string
@@ -55,8 +55,8 @@ export class UserService {
   }
 
   getAuthenticatedUserInfo(email: string): Observable<any> {
-    return this.httpClient.get<any>(this.url + '/pre-user/' + email)
-    
+    const headers = { 'content-type': 'application/json' }
+    return this.httpClient.get<any>(this.url + '/pre-user/' + email, { 'headers' : headers}) 
   }
 
   addRole(id: number, role: string): Observable<User> {
