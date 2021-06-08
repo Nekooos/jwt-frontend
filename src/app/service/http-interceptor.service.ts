@@ -1,5 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { chainedInstruction } from '@angular/compiler/src/render3/view/util';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
@@ -14,10 +13,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (sessionStorage.getItem('username') && sessionStorage.getItem('jwtToken')) {
+    if (sessionStorage.getItem('username') && sessionStorage.getItem('jwtToken') && sessionStorage.getItem('refreshToken')) {
       request = request.clone({                                                                                                                                                                                                           
         setHeaders: {
-          Authorization: sessionStorage.getItem('jwtToken')
+          Authorization: sessionStorage.getItem('jwtToken'),
+          refreshToken: sessionStorage.getItem('refreshToken')
         }
       })
     } else {

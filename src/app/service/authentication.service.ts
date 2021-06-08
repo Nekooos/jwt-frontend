@@ -19,22 +19,23 @@ export class AuthenticationService {
     return this.httpClient.post<any>(this.url +'/authenticate', {email, password})
     .pipe(
       tap(jwtResponse => {
-        console.log(jwtResponse.token)
         const jwtToken = jwtResponse.token
+        const jwtRefreshToken = jwtResponse.refreshJwtToken
         const decodedJwtToken = jwtDecode<JwtPayload>(jwtToken)
         const email = decodedJwtToken['sub']
         const role = decodedJwtToken['role']
-        this.setSession(jwtToken, email, role)
+        this.setSession(jwtToken, jwtRefreshToken, email, role)
         this.authenticated()
       })
     )
   }
 
-  private setSession(jwtToken, email: string, role: string): void {
+  private setSession(jwtToken: string, refreshToken: string, email: string, role: string): void {
+    console.log(refreshToken)
     sessionStorage.setItem("username", email)
     sessionStorage.setItem("role", role)
-    let tokenString = "Bearer " + jwtToken
-    console.log(jwtToken)
+    const tokenString = "Bearer " + jwtToken
+    sessionStorage.setItem("refreshToken", refreshToken)
     sessionStorage.setItem("jwtToken", tokenString)
   }
 

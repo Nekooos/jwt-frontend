@@ -53,16 +53,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
-  addFormValuesToUserDto() {
+  private addFormValuesToUserDto() {
     this.userDto.email = this.loginForm.value.email
     this.userDto.password = this.loginForm.value.password
+  }
+
+  stayLoggedInValue(event) {
+    console.log(event.target.checked)
+    let test = this.loginForm.value.stayLoggedIn
+    console.log(test)
   }
 
   get email(): any {
     return this.loginForm.get('email')
   }
 
-  
   get password(): any {
     return this.loginForm.get('password')
   }
